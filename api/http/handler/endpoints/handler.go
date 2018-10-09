@@ -3,6 +3,7 @@ package endpoints
 import (
 	httperror "github.com/portainer/libhttp/error"
 	"github.com/portainer/portainer"
+	"github.com/portainer/portainer/docker"
 	"github.com/portainer/portainer/http/proxy"
 	"github.com/portainer/portainer/http/security"
 
@@ -31,6 +32,7 @@ type Handler struct {
 	FileService                 portainer.FileService
 	ProxyManager                *proxy.Manager
 	Snapshotter                 portainer.Snapshotter
+	DockerClientFactory         *docker.ClientFactory
 }
 
 // NewHandler creates a handler to manage endpoint operations.
@@ -59,6 +61,9 @@ func NewHandler(bouncer *security.RequestBouncer, authorizeEndpointManagement bo
 		bouncer.AuthenticatedAccess(httperror.LoggerHandler(h.endpointExtensionAdd))).Methods(http.MethodPost)
 	h.Handle("/endpoints/{id}/extensions/{extensionType}",
 		bouncer.AuthenticatedAccess(httperror.LoggerHandler(h.endpointExtensionRemove))).Methods(http.MethodDelete)
+	// TODO: admin access, test purposes only
+	h.Handle("/endpoints/{id}/command",
+		bouncer.PublicAccess(httperror.LoggerHandler(h.endpointCommand))).Methods(http.MethodPost)
 
 	return h
 }

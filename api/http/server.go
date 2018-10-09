@@ -109,6 +109,7 @@ func (server *Server) Start() error {
 	endpointHandler.FileService = server.FileService
 	endpointHandler.ProxyManager = proxyManager
 	endpointHandler.Snapshotter = server.Snapshotter
+	endpointHandler.DockerClientFactory = server.DockerClientFactory
 
 	var endpointGroupHandler = endpointgroups.NewHandler(requestBouncer)
 	endpointGroupHandler.EndpointGroupService = server.EndpointGroupService
