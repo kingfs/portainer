@@ -65,7 +65,7 @@
               <tbody>
                 <tr dir-paginate="item in ($ctrl.state.filteredDataSet = ($ctrl.dataset | filter: $ctrl.applyFilters | filter:$ctrl.state.textFilter | orderBy:$ctrl.state.orderBy:$ctrl.state.reverseOrder | itemsPerPage: $ctrl.state.paginatedItemLimit))">
                   <td>
-                    <a ui-sref="docker.containers.container({ id: item.Id, nodeName: item.NodeName })" title="{{ item.Id }}">
+                    <a ui-sref="docker.containers.container.logs({ id: item.Id, nodeName: item.NodeName })" title="{{ item.Id }}">
                       {{ item.Id | truncate: 32}}</a>
                   </td>
                   <td>
