@@ -10,42 +10,12 @@ angular.module('portainer.docker')
         publicURL: EndpointProvider.endpointPublicURL()
       };
 
-      this.settings = {
-        open: false,
-        truncateContainerId: true,
-        containerIdTruncateSize: 32
-      };
-
       this.filters = {
         state: {
           open: false,
           enabled: false,
           values: []
         }
-      };
-
-      this.columnVisibility = {
-        state: {
-          open: false
-        },
-        columns: {
-          id: {
-            label: 'Id',
-            display: true
-          },
-          state: {
-            label: 'Status',
-            display: true
-          },
-          created: {
-            label: 'Created',
-            display: true
-          }
-        }
-      };
-
-      this.onColumnVisibilityChange = function () {
-        DatatableService.setColumnVisibilitySettings(this.tableKey, this.columnVisibility);
       };
 
       this.changeOrderBy = function (orderField) {
@@ -81,15 +51,6 @@ angular.module('portainer.docker')
         }
         this.filters.state.enabled = filtered;
         DatatableService.setDataTableFilters(this.tableKey, this.filters);
-      };
-
-      this.onSettingsContainerIdTruncateChange = function () {
-        if (this.settings.truncateContainerId) {
-          this.settings.containerIdTruncateSize = 32;
-        } else {
-          this.settings.containerIdTruncateSize = 256;
-        }
-        DatatableService.setDataTableSettings(this.tableKey, this.settings);
       };
 
       this.prepareTableFromDataset = function () {
@@ -132,18 +93,6 @@ angular.module('portainer.docker')
           this.updateStoredFilters(storedFilters.state.values);
         }
         this.filters.state.open = false;
-
-        var storedSettings = DatatableService.getDataTableSettings(this.tableKey);
-        if (storedSettings !== null) {
-          this.settings = storedSettings;
-        }
-        this.settings.open = false;
-
-        var storedColumnVisibility = DatatableService.getColumnVisibilitySettings(this.tableKey);
-        if (storedColumnVisibility !== null) {
-          this.columnVisibility = storedColumnVisibility;
-        }
-        this.columnVisibility.state.open = false;
       };
 
       function setDefaults(ctrl) {
