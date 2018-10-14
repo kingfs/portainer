@@ -10,8 +10,8 @@ angular.module('portainer.app')
 
       service.createJobFromFileContent = function (image, jobFileContent, endpointId) {
         var payload = {
-          image: image,
-          fileContent: jobFileContent
+          Image: image,
+          FileContent: jobFileContent
         };
         return Job.create({
           method: 'string',

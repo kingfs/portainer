@@ -73,8 +73,8 @@ angular.module('portainer.app')
       return Upload.upload({
         url: 'api/endpoints/' + endpointId + '/job?method=file',
         data: {
-          file: file,
-          image: imageName
+          File: file,
+          Image: imageName
         },
         ignoreLoadingBar: true
       });
